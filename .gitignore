@@ -1,0 +1,12 @@
+# Diretórios criados pelo interpretador
+__pycache__
+
+# PyCharm ou Intellij IDEA
+.idea
+
+# VS Code
+.vscode
+.code
+
+# Diretório do virtualenv
+venv
