@@ -18,3 +18,15 @@ def list_todos():
 @app.route('/<int:id>')
 def show_todo(id):
     return id
+
+@app.route('/', methods=['POST'])
+def create_todo():
+  return 'post'
+
+@app.route('/<int:id>', methods=['PUT', 'PATCH'])
+def update_todo(id):
+  return 'PUT/PATCH'
+
+@app.route('/<int:id>', methods=['POST'])
+def delete_todo(id):
+  return 'post'
