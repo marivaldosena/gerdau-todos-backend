@@ -1,4 +1,4 @@
-from app.main import db
+from app import db
 
 
 class Tipo(db.Model):

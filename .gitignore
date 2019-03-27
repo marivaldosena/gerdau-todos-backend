@@ -13,3 +13,6 @@ venv
 
 # Coverage
 .coverage
+
+# SQLite
+*.sqlite

@@ -71,5 +71,7 @@ def get_config(config):
         return DevConfig
     elif config == 'test':
         return TestingConfig
-    else:
+    elif config == 'prod':
         return ProdConfig
+    else:
+        return DevConfig
