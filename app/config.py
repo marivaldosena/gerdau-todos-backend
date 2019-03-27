@@ -59,3 +59,12 @@ class ProdConfig(Config):
     '''
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'postgresql://username:password@hostname/database'
+
+
+def get_config(config):
+  if config == 'dev':
+    return DevConfig
+  elif config == 'test':
+    return TestingConfig 
+  else:
+    return ProdConfig
