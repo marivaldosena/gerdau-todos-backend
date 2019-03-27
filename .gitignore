@@ -10,3 +10,6 @@ __pycache__
 
 # Diretório do virtualenv
 venv
+
+# Coverage
+.coverage
