@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from .config import get_config
+from app.config import get_config
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -19,14 +19,17 @@ def list_todos():
 def show_todo(id):
     return id
 
+
 @app.route('/', methods=['POST'])
 def create_todo():
-  return 'post'
+    return 'post'
+
 
 @app.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update_todo(id):
-  return 'PUT/PATCH'
+    return 'PUT/PATCH'
+
 
 @app.route('/<int:id>', methods=['POST'])
 def delete_todo(id):
-  return 'post'
+    return 'post'
