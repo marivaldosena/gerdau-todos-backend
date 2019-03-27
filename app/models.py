@@ -1,4 +1,5 @@
-from .main import db
+from app.main import db
+
 
 class Tipo(db.Model):
     """
@@ -13,6 +14,12 @@ class Tipo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tipo = db.Column(db.String(20), null=False)
     todos = db.relationship('Todo', backref='tipo')
+
+    def __str__(self):
+        return '<Tipo: {}>'.format(self.tipo)
+
+    def __repr__(self):
+        return '<Tipo: {}>'.format(self.tipo)
 
 
 class Todo(db.Model):
@@ -29,3 +36,9 @@ class Todo(db.Model):
     tipo_id = db.Column(db.Integer, db.ForeignKey('tipos.id'), null=False)
     finalizado = db.Column(db.Boolean, default=False)
     data_entrega = db.Column(db.DateTime)
+
+    def __str__(self):
+        return '<Todo: {}>'.format(self.todo)
+
+    def __repr__(self):
+        return '<Todo: {}>'.format(self.todo)

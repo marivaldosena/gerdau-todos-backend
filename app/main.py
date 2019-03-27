@@ -9,27 +9,8 @@ config_name = os.environ.get('APP_ENV')
 app.config.from_object(get_config(config_name))
 db = SQLAlchemy(app)
 
+from app.routes.tipos_routes import tipos_bp
+from app.routes.todos_routes import todos_bp
 
-@app.route('/')
-def list_todos():
-    return 'index', 200
-
-
-@app.route('/<int:id>')
-def show_todo(id):
-    return id
-
-
-@app.route('/', methods=['POST'])
-def create_todo():
-    return 'post'
-
-
-@app.route('/<int:id>', methods=['PUT', 'PATCH'])
-def update_todo(id):
-    return 'PUT/PATCH'
-
-
-@app.route('/<int:id>', methods=['POST'])
-def delete_todo(id):
-    return 'post'
+app.register_blueprint(tipos_bp, url_prefix='/tipos')
+app.register_blueprint(todos_bp, url_prefix='/')
