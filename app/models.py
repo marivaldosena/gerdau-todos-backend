@@ -1,4 +1,4 @@
-from app import db
+from app import db, ma
 
 
 class Tipo(db.Model):
@@ -22,6 +22,10 @@ class Tipo(db.Model):
         return '<Tipo: {}>'.format(self.tipo)
 
 
+class TipoSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'tipo')
+
 class Todo(db.Model):
     """
     Armazena detalhes da tarefa criada.
@@ -42,3 +46,8 @@ class Todo(db.Model):
 
     def __repr__(self):
         return '<Todo: {}>'.format(self.todo)
+
+
+class TodoSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'todo', 'tipo_id', 'finalizado', 'data_entrega')

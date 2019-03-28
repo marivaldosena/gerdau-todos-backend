@@ -1,31 +1,59 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify, request
 
 tipos_bp = Blueprint('tipos', __name__)
 
-from app.models import Tipo
+from app.models import Tipo, TipoSchema, db
 
 
 @tipos_bp.route('/')
 def list():
     resultado = Tipo.query.all()
-    return resultado, 200
+    tipo_schema = TipoSchema(many=True)
 
-
-@tipos_bp.route('/<int:id>')
-def show(id):
-    return id, 200
+    return tipo_schema.jsonify(resultado), 200
 
 
 @tipos_bp.route('/', methods=['POST'])
 def create():
-    return 'post', 201
+    nome = request.json['tipo']
+
+    tipo = Tipo(tipo=nome)
+
+    db.session.add(tipo)
+    db.session.commit()
+
+    tipo_schema = TipoSchema()
+
+    return tipo_schema.jsonify(tipo), 201
+
+
+@tipos_bp.route('/<int:id>', methods=['GET'])
+def show(id):
+    resultado = Tipo.query.get_or_404(id)
+    tipo_schema = TipoSchema()
+
+    return tipo_schema.jsonify(resultado), 200
+
+
+@tipos_bp.route('/<int:id>', methods=['DELETE'])
+def delete(id):
+    tipo = Tipo.query.get_or_404(id)
+
+    db.session.delete(tipo)
+    db.session.commit()
+    return jsonify({'status': 'Item excluído'}), 204
 
 
 @tipos_bp.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
-    return 'PUT/PATCH',
+    nome = request.json['tipo']
 
+    tipo = Tipo.query.get_or_404(id)
+    tipo.tipo = nome
 
-@tipos_bp.route('/<int:id>', methods=['POST'])
-def delete(id):
-    return 'post', 204
+    db.session.delete(tipo)
+    db.session.commit()
+
+    tipo_schema = TipoSchema()
+
+    return tipo_schema.jsonify(tipo), 200
