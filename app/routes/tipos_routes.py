@@ -54,6 +54,6 @@ def update(id):
     db.session.delete(tipo)
     db.session.commit()
 
-    tipo_schema = TipoSchema()
+    schema = TipoSchema()
 
-    return tipo_schema.jsonify(tipo), 200
+    return schema.jsonify(tipo), 200
