@@ -1,4 +1,5 @@
 from app import db, ma
+from flask_marshmallow.fields import fields
 
 
 class Tipo(db.Model):
@@ -49,5 +50,9 @@ class Todo(db.Model):
 
 
 class TodoSchema(ma.Schema):
+    tipo_id = fields.Integer(dump_to='tipoId')
+    data_entrega = fields.DateTime(dump_to='dataEntrega')
+    
     class Meta:
         fields = ('id', 'todo', 'tipo_id', 'finalizado', 'data_entrega')
+        
