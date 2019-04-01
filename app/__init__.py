@@ -14,13 +14,12 @@ ma = Marshmallow(app)
 
 @app.after_request
 def configurar_cors(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = '*'
     return response
 
-
-from app.routes.tipos_routes import tipos_bp
 from app.routes.todos_routes import todos_bp
 
-app.register_blueprint(tipos_bp, url_prefix='/tipos')
 app.register_blueprint(todos_bp, url_prefix='/')
 app.register_blueprint(todos_bp, url_prefix='/todos')

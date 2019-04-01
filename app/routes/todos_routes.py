@@ -27,13 +27,19 @@ def show(id):
 def create():
     schema = TodoSchema()
 
-    json = request.get_json()
-    d = schema.load(json).data
+    nome = request.json['todo']
+    tipo = request.json['tipo']
+    finalizado = request.json.get('finalizado') or False
+    data_entrega = request.json['dataEntrega']
 
-    todo = Todo(todo=d['todo'],
-                tipo_id=d['tipo_id'],
-                finalizado=d['finalizado'],
-                data_entrega=datetime.datetime.fromisoformat(d['data_entrega']))
+    todo = Todo(todo=nome,
+                tipo=tipo,
+                finalizado=finalizado)
+
+    if str(data_entrega).isnumeric:
+        todo.data_entrega=datetime.datetime.now()
+    else:
+        todo.data_entrega=datetime.date.fromisoformat(data_entrega)
 
     db.session.add(todo)
     db.session.commit()
@@ -45,15 +51,21 @@ def create():
 def update(id):
     schema = TodoSchema()
 
-    json = request.get_json()
-    d = schema.load(json).data
+    nome = request.json['todo']
+    tipo = request.json['tipo']
+    finalizado = request.json.get('finalizado') or False
+    data_entrega = request.json['dataEntrega']
 
     todo = Todo.query.get_or_404(id)
 
-    todo.todo = d['todo']
-    todo.tipo_id = d['tipo_id']
-    todo.finalizado = d['finalizado']
-    todo.data_entrega = datetime.datetime.fromisoformat(d['data_entrega'])
+    todo.todo = nome
+    todo.tipo = tipo
+    todo.finalizado = finalizado
+
+    if str(data_entrega).isnumeric:
+        todo.data_entrega=datetime.datetime.now()
+    else:
+        todo.data_entrega=datetime.date.fromisoformat(data_entrega)
 
     db.session.add(todo)
     db.session.commit()
